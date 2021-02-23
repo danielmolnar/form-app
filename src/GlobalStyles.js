@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+import background from './background.svg';
 
 export default createGlobalStyle`
 
@@ -9,8 +10,13 @@ export default createGlobalStyle`
 
 
  body {
-  
-  margin: 2rem;
+  /* background-color: darkseagreen; */
+  margin: 1rem;
+  background-image: url(${background});
+  background-size: cover;
+
+  height: 200vh;
+
  }
 
 

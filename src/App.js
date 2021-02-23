@@ -1,4 +1,3 @@
-import './App.css';
 import ProductForm from './ProductForm';
 import styled from 'styled-components';
 import React, { useState } from 'react';
@@ -12,13 +11,27 @@ function App() {
     setProducts([...products, { ...product, id: uuidv4() }]);
 
   return (
-    <div className="App">
-      <ProductForm submitFunction={addProduct} />
-      {products.map((product) => (
-        <ProductCard product={product} />
-      ))}
-    </div>
+    <Maincontainer>
+      <>
+        <ProductForm submitFunction={addProduct} />
+
+        {products.map((product) => (
+          <ProductCard product={product} />
+        ))}
+      </>
+    </Maincontainer>
   );
 }
 
 export default App;
+
+const Maincontainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+// const ProductcardWrapper = styled.div`
+//   background-image: url(${wallpaper});
+//   background-size: contain;
+// `;

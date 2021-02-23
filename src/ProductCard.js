@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import wallpaper from './wallpaper.svg';
 
 export default function ProductCard({ product }) {
   return (
@@ -26,11 +27,11 @@ export default function ProductCard({ product }) {
           <p>{product.supportContact}</p>
           <p>On Sale: {product.onSale ? 'Yes' : 'No'}</p>
         </ProdNameWrapper>
-        <div>
+        <TagsList>
           {product.tags.map((tag) => (
             <p>{tag}</p>
           ))}
-        </div>
+        </TagsList>
       </CardWrapper>
     </>
   );
@@ -43,9 +44,13 @@ const CardWrapper = styled.div`
   border: solid black 1px;
   margin-bottom: 1rem;
   padding: 1rem;
-  width: 500px;
+  width: 400px;
   margin-top: 2rem;
   border-radius: 10px;
+  background-image: url(${wallpaper});
+  background-size: cover;
+  color: white;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
 
   h1 {
     text-align: center;
@@ -69,5 +74,21 @@ const ProdNameWrapper = styled.div`
 const Headerstyle = styled.h1`
   display: flex;
   justify-content: center;
-  width: 500px;
+  width: 400px;
+`;
+
+const TagsList = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  color: white;
+  padding: 0.4rem;
+
+  p {
+    margin-right: 0.5rem;
+    border: white solid 1px;
+    background-color: ivory;
+    border-radius: 10px;
+    padding: 0.4rem;
+    color: black;
+  }
 `;

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 // import { useEffect } from 'react';
 import styled from 'styled-components';
+import Tag from './Tag';
+import wallpaper from './wallpaper.svg';
 
 export default function ProductForm({ submitFunction }) {
   const initialProduct = {
@@ -19,7 +21,6 @@ export default function ProductForm({ submitFunction }) {
   const handleChange = (event) => {
     const field = event.target;
     let value = event.target.value;
-    // let value = field.type === 'checkbox' ? field.checked : field.value;
     if (event.target.type === 'checkbox') {
       value = event.target.checked;
     }
@@ -27,6 +28,13 @@ export default function ProductForm({ submitFunction }) {
     setProduct({
       ...product,
       [field.name]: value,
+    });
+  };
+
+  const addProductTag = (tag) => {
+    setProduct({
+      ...product,
+      tags: [...product.tags, tag],
     });
   };
 
@@ -38,131 +46,126 @@ export default function ProductForm({ submitFunction }) {
   }
 
   return (
-    <MainContainer>
-      <form onSubmit={submitForm}>
-        <Headerstyle>New Product</Headerstyle>
-        <CardContainer>
-          <LabelStyler>
-            Product Name <br />
-            <br />
-            <InputStyler
-              type="text"
-              name="name"
-              onChange={handleChange}
-              value={product.name}
-            />
-          </LabelStyler>
-          <NumberContainer>
-            <label>
-              Price <br />
+    <WrapContainer>
+      <MainContainer>
+        <form onSubmit={submitForm}>
+          <Headerstyle>New Product</Headerstyle>
+          <CardContainer>
+            <LabelStyler>
+              Product Name <br />
               <br />
-              <input
+              <InputStyler
                 type="text"
-                name="price"
-                value={product.price}
+                name="name"
                 onChange={handleChange}
+                value={product.name}
               />
-            </label>
-            <label>
-              Currency <br />
+            </LabelStyler>
+            <NumberContainer>
+              <label>
+                Price <br />
+                <br />
+                <input
+                  type="text"
+                  name="price"
+                  value={product.price}
+                  onChange={handleChange}
+                />
+              </label>
+              <label>
+                Currency <br />
+                <br />
+                <input
+                  type="text"
+                  name="currency"
+                  value={product.currency}
+                  onChange={handleChange}
+                />
+              </label>
+            </NumberContainer>
+            <LabelStyler>
+              Category <br />
               <br />
-              <input
+              <Categorystyle
+                name="category"
+                value={product.category}
+                onChange={handleChange}
+                placeholder="Select a Category"
+              >
+                <option value="Graphics Cards">Graphics Cards</option>
+                <option value="CPU">CPU</option>
+                <option value="Memory">Memory</option>
+              </Categorystyle>
+            </LabelStyler>
+            <LabelStyler>
+              Package Size <br />
+              <br />
+              <Radiocontainer>
+                <input
+                  type="radio"
+                  value="small"
+                  name="size"
+                  onChange={handleChange}
+                  checked={product.size === 'small'}
+                />{' '}
+                S
+                <input
+                  type="radio"
+                  value="medium"
+                  name="size"
+                  onChange={handleChange}
+                  checked={product.size === 'medium'}
+                />{' '}
+                M
+                <input
+                  type="radio"
+                  value="large"
+                  name="size"
+                  onChange={handleChange}
+                  checked={product.size === 'large'}
+                />{' '}
+                L
+              </Radiocontainer>
+            </LabelStyler>
+            <LabelStyler>
+              Support Contact (email) <br />
+              <br />
+              <InputStyler
                 type="text"
-                name="currency"
-                value={product.currency}
+                name="supportContact"
                 onChange={handleChange}
+                value={product.supportContact}
               />
+            </LabelStyler>
+
+            <Tag onCreateTag={addProductTag} tags={product.tags} />
+
+            <label>
+              <input
+                type="checkbox"
+                name="onSale"
+                value={1}
+                onChange={handleChange}
+                checked={product.onSale}
+              />{' '}
+              On Sale
             </label>
-          </NumberContainer>
-          <LabelStyler>
-            Category <br />
-            <br />
-            <Categorystyle
-              name="category"
-              value={product.category}
-              onChange={handleChange}
-              placeholder="Select a Category"
-            >
-              <option value="Graphics Cards">Graphics Cards</option>
-              <option value="CPU">CPU</option>
-              <option value="Memory">Memory</option>
-            </Categorystyle>
-          </LabelStyler>
-          <LabelStyler>
-            Package Size <br />
-            <br />
-            <Radiocontainer>
-              <input
-                type="radio"
-                value="small"
-                name="size"
-                onChange={handleChange}
-                checked={product.size === 'small'}
-              />{' '}
-              S
-              <input
-                type="radio"
-                value="medium"
-                name="size"
-                onChange={handleChange}
-                checked={product.size === 'medium'}
-              />{' '}
-              M
-              <input
-                type="radio"
-                value="large"
-                name="size"
-                onChange={handleChange}
-                checked={product.size === 'large'}
-              />{' '}
-              L
-            </Radiocontainer>
-          </LabelStyler>
-          <LabelStyler>
-            Support Contact (email) <br />
-            <br />
-            <InputStyler
-              type="text"
-              name="supportContact"
-              onChange={handleChange}
-              value={product.supportContact}
-            />
-          </LabelStyler>
-          <LabelStyler>
-            Product Tags <br />
-            <br />
-            <InputStyler
-              type="text"
-              name="productTags"
-              onChange={handleChange}
-              value={product.productTags}
-            />
-          </LabelStyler>
-          <label>
-            <input
-              type="checkbox"
-              name="onSale"
-              value={1}
-              onChange={handleChange}
-              checked={product.onSale}
-            />{' '}
-            On Sale
-          </label>
-          <ButtonContainer>
-            <button type="submit">Add</button>
-            <button type="cancel">Cancel</button>
-          </ButtonContainer>
-        </CardContainer>
-        <h2>You entered the following: {product.name}</h2>
-        <p>
-          {product.price} {product.currency}
-        </p>
-        <p>{product.category}</p>
-        <p>{product.size}</p>
-        <p>{product.supportContact}</p>
-        <p>On Sale: {product.onSale ? 'Yes' : 'No'}</p>
-      </form>
-    </MainContainer>
+            <ButtonContainer>
+              <button type="submit">Add</button>
+              <button type="cancel">Cancel</button>
+            </ButtonContainer>
+          </CardContainer>
+          <h2>You entered the following: {product.name}</h2>
+          <p>
+            {product.price} {product.currency}
+          </p>
+          <p>{product.category}</p>
+          <p>{product.size}</p>
+          <p>{product.supportContact}</p>
+          <p>On Sale: {product.onSale ? 'Yes' : 'No'}</p>
+        </form>
+      </MainContainer>
+    </WrapContainer>
   );
 }
 
@@ -174,8 +177,12 @@ const MainContainer = styled.div`
   align-items: center;
   gap: 0.8rem;
   border: black solid 1px;
-  width: 500px;
+  width: 400px;
   border-radius: 10px;
+  padding: 1rem;
+  background-image: url(${wallpaper});
+  background-size: cover;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
 
   h1 {
   }
@@ -220,8 +227,11 @@ const ButtonContainer = styled.div`
   button {
     width: 165px;
     height: 35px;
-    border: black solid 3px;
+    border: ivory solid 2px;
     border-radius: 5px;
+    opacity: 0.8;
+    color: white;
+    font-size: 1rem;
   }
 
   button:first-of-type {
@@ -229,7 +239,7 @@ const ButtonContainer = styled.div`
   }
 
   button:last-of-type {
-    background-color: lightgrey;
+    background-color: black;
   }
 `;
 
@@ -240,4 +250,9 @@ const InputStyler = styled.input`
 const Headerstyle = styled.h1`
   display: flex;
   justify-content: center;
+`;
+
+const WrapContainer = styled.div`
+  color: white;
+  width: 400px;
 `;
