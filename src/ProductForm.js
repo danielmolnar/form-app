@@ -31,6 +31,13 @@ export default function ProductForm({ submitFunction }) {
     });
   };
 
+  // const addProductTag = (tag) => {
+  //   setProduct({
+  //     ...product,
+  //     tags: [...product.tags, tag],
+  //   });
+  // };
+
   const addProductTag = (tag) => {
     setProduct({
       ...product,
@@ -44,6 +51,11 @@ export default function ProductForm({ submitFunction }) {
     submitFunction(product);
     setProduct(initialProduct);
   }
+
+  const removeProductTag = (deleteTag) => {
+    const remainingTags = product.tags.filter((tag) => tag !== deleteTag);
+    setProduct({ ...product, tags: remainingTags });
+  };
 
   return (
     <WrapContainer>
@@ -138,7 +150,11 @@ export default function ProductForm({ submitFunction }) {
               />
             </LabelStyler>
 
-            <Tag onCreateTag={addProductTag} tags={product.tags} />
+            <Tag
+              onCreateTag={addProductTag}
+              tags={product.tags}
+              onRemoveTag={removeProductTag}
+            />
 
             <label>
               <input
