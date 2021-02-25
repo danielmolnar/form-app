@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Tag from './Tag';
 import wallpaper from './wallpaper.svg';
+import isValidForm from '../src/lib/validateFunctions';
 
 export default function ProductForm({ submitFunction }) {
   const initialProduct = {
@@ -31,13 +32,6 @@ export default function ProductForm({ submitFunction }) {
     });
   };
 
-  // const addProductTag = (tag) => {
-  //   setProduct({
-  //     ...product,
-  //     tags: [...product.tags, tag],
-  //   });
-  // };
-
   const addProductTag = (tag) => {
     setProduct({
       ...product,
@@ -45,11 +39,35 @@ export default function ProductForm({ submitFunction }) {
     });
   };
 
+  // const isValidProductName = (name) => name.length >= 2;
+  // const isValidMailingAdress = (mail) => mail.includes('@');
+  // const isValidPrice = (price) => {
+  //   if (price.includes(',')) {
+  //     const [_, decimals] = price.split(',');
+  //     if (decimals.length <= 2) {
+  //       return true;
+  //     } else {
+  //       return false;
+  //     }
+  //   } else if (!price.includes('.')) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // };
+  // const isValidForm = (product) =>
+  //   isValidProductName(product.name) &&
+  //   isValidMailingAdress(product.supportContact) &&
+  //   isValidPrice(product.price);
+
   function submitForm(event) {
     event.preventDefault();
-    console.log(product);
-    submitFunction(product);
-    setProduct(initialProduct);
+    if (isValidForm(product)) {
+      submitFunction(product);
+      setProduct(initialProduct);
+    } else {
+      alert('Bitte geben Sie Korrekte Daten ein');
+    }
   }
 
   const removeProductTag = (deleteTag) => {
@@ -192,7 +210,7 @@ const MainContainer = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 0.8rem;
-  border: black solid 1px;
+  /* border: black solid 1px; */
   width: 400px;
   border-radius: 10px;
   padding: 1rem;
@@ -272,3 +290,38 @@ const WrapContainer = styled.div`
   color: white;
   width: 400px;
 `;
+
+// const isValidProductName = (name) => name.length >= 2;
+//  const isValidEmailAddress = (email) => email.includes('@');
+
+// const checkFormValidation = (product) =>
+// isValidProductName(product.name) && isValidPrice(product.price);
+// isValidEmailAddress(product.supportContact);
+
+// &&
+// isValidPrice(product.price);
+
+// function submitForm(event) {
+//   event.preventDefault();
+//   console.log(product);
+
+//   if (checkFormValidation(product)) {
+//     submitFunction(product);
+//     setProduct(initialProduct);
+//   } else {
+//     alert('Error in Form');
+//   }
+// }
+
+// const isValidPrice = (price) => {
+//   if (price.includes(',') && !price.includes('.')) {
+//     if (typeof Number(price) === 'number') {
+//       const [_, decimals] = price.split(',');
+//       if (decimals.length <= 2) {
+//         return true;
+//       } else {
+//         return false;
+//       }
+//     }
+//   }
+// };

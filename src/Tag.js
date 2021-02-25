@@ -24,7 +24,9 @@ export default function Tag({ onCreateTag, tags, onRemoveTag, onTabIndex }) {
             <span
               key={index}
               tabIndex="0"
-              onKeyPress={(e) => e.key === 'Enter' && onRemoveTag(tag)}
+              onKeyDown={(event) =>
+                event.key === 'Backspace' && onRemoveTag(tag)
+              }
             >
               {tag}
               <i
@@ -52,27 +54,18 @@ export default function Tag({ onCreateTag, tags, onRemoveTag, onTabIndex }) {
 
 const SectionWrapper = styled.section`
   display: flex;
-  /* position: relative; */
+  /* width: 30 */
   flex-wrap: wrap;
-  /* top: 0; */
   border-radius: 5px;
-  /* left: 0px; */
-  /* z-index: 2; */
   border: none;
-  /* top: 2px; */
-  /* height: auto; */
-
   cursor: pointer;
   color: white;
-  /* background-color: #1e90ff; */
-  /* transform: translateX(2px); */
   gap: 5px;
 
   input {
     border: none;
     display: inline;
     outline: none;
-    height: 30px;
     border-radius: 5px;
     background: none;
     color: white;

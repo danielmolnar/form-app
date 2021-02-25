@@ -41,7 +41,7 @@ const CardWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  border: solid black 1px;
+  /* border: solid black 1px; */
   margin-bottom: 1rem;
   padding: 1rem;
   width: 400px;
