@@ -1,8 +1,8 @@
-import ProductForm from './ProductForm';
+import ProductForm from './components/ProductForm';
 import styled from 'styled-components';
 import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import ProductCard from './ProductCard';
+import ProductCard from './components/ProductCard';
 
 function App() {
   const [products, setProducts] = useState([]);

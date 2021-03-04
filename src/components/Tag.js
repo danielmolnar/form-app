@@ -1,4 +1,4 @@
-import ProductForm from './ProductForm';
+import ProductForm from '../components/ProductForm';
 import { useState } from 'react';
 import styled from 'styled-components';
 

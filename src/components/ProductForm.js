@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 // import { useEffect } from 'react';
 import styled from 'styled-components';
-import Tag from './Tag';
+import Tag from '../components/Tag';
 import wallpaper from './wallpaper.svg';
-import isValidForm from '../src/lib/validateFunctions';
+import isValidForm from '../lib/validateFunctions';
 
 export default function ProductForm({ submitFunction }) {
   const initialProduct = {
