@@ -39,27 +39,6 @@ export default function ProductForm({ submitFunction }) {
     });
   };
 
-  // const isValidProductName = (name) => name.length >= 2;
-  // const isValidMailingAdress = (mail) => mail.includes('@');
-  // const isValidPrice = (price) => {
-  //   if (price.includes(',')) {
-  //     const [_, decimals] = price.split(',');
-  //     if (decimals.length <= 2) {
-  //       return true;
-  //     } else {
-  //       return false;
-  //     }
-  //   } else if (!price.includes('.')) {
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // };
-  // const isValidForm = (product) =>
-  //   isValidProductName(product.name) &&
-  //   isValidMailingAdress(product.supportContact) &&
-  //   isValidPrice(product.price);
-
   function submitForm(event) {
     event.preventDefault();
     if (isValidForm(product)) {
@@ -203,8 +182,6 @@ export default function ProductForm({ submitFunction }) {
   );
 }
 
-// onClick={clickHandler}
-
 const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -290,38 +267,3 @@ const WrapContainer = styled.div`
   color: white;
   width: 400px;
 `;
-
-// const isValidProductName = (name) => name.length >= 2;
-//  const isValidEmailAddress = (email) => email.includes('@');
-
-// const checkFormValidation = (product) =>
-// isValidProductName(product.name) && isValidPrice(product.price);
-// isValidEmailAddress(product.supportContact);
-
-// &&
-// isValidPrice(product.price);
-
-// function submitForm(event) {
-//   event.preventDefault();
-//   console.log(product);
-
-//   if (checkFormValidation(product)) {
-//     submitFunction(product);
-//     setProduct(initialProduct);
-//   } else {
-//     alert('Error in Form');
-//   }
-// }
-
-// const isValidPrice = (price) => {
-//   if (price.includes(',') && !price.includes('.')) {
-//     if (typeof Number(price) === 'number') {
-//       const [_, decimals] = price.split(',');
-//       if (decimals.length <= 2) {
-//         return true;
-//       } else {
-//         return false;
-//       }
-//     }
-//   }
-// };
