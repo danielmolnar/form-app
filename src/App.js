@@ -31,8 +31,3 @@ const Maincontainer = styled.div`
   flex-direction: column;
   align-items: center;
 `;
-
-// const ProductcardWrapper = styled.div`
-//   background-image: url(${wallpaper});
-//   background-size: contain;
-// `;
