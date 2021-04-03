@@ -15,7 +15,6 @@ function App() {
       <>
         <h1>Add a product</h1>
         <ProductForm submitFunction={addProduct} />
-
         {products.map((product) => (
           <ProductCard product={product} />
         ))}
