@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
-// import { useEffect } from 'react';
+import { useState } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import Tag from './Tag';
-import wallpaper from './wallpaper.svg';
-import isValidForm from '../src/lib/validateFunctions';
+import Tag from '../components/Tag';
+import wallpaper from '../assets/wallpaper.svg';
+import isValidForm from '../lib/validateFunctions';
 
 export default function ProductForm({ submitFunction }) {
   const initialProduct = {
-    name: '',
-    price: '',
-    currency: '',
     category: '',
+    currency: '',
+    name: '',
+    onSale: false,
+    price: '',
     size: '',
     supportContact: '',
     tags: [],
-    onSale: false,
   };
 
   const [product, setProduct] = useState(initialProduct);
@@ -45,7 +45,7 @@ export default function ProductForm({ submitFunction }) {
       submitFunction(product);
       setProduct(initialProduct);
     } else {
-      alert('Bitte geben Sie Korrekte Daten ein');
+      alert('Please enter valid data');
     }
   }
 
@@ -117,7 +117,7 @@ export default function ProductForm({ submitFunction }) {
                   onChange={handleChange}
                   checked={product.size === 'small'}
                 />{' '}
-                S
+                <p>S</p>
                 <input
                   type="radio"
                   value="medium"
@@ -125,7 +125,7 @@ export default function ProductForm({ submitFunction }) {
                   onChange={handleChange}
                   checked={product.size === 'medium'}
                 />{' '}
-                M
+                <p>M</p>
                 <input
                   type="radio"
                   value="large"
@@ -133,7 +133,7 @@ export default function ProductForm({ submitFunction }) {
                   onChange={handleChange}
                   checked={product.size === 'large'}
                 />{' '}
-                L
+                <p>L</p>
               </Radiocontainer>
             </LabelStyler>
             <LabelStyler>
@@ -146,13 +146,11 @@ export default function ProductForm({ submitFunction }) {
                 value={product.supportContact}
               />
             </LabelStyler>
-
             <Tag
-              onCreateTag={addProductTag}
+              addProfileTag={addProductTag}
               tags={product.tags}
-              onRemoveTag={removeProductTag}
+              removeProfileTag={removeProductTag}
             />
-
             <label>
               <input
                 type="checkbox"
@@ -168,7 +166,7 @@ export default function ProductForm({ submitFunction }) {
               <button type="cancel">Cancel</button>
             </ButtonContainer>
           </CardContainer>
-          <h2>You entered the following: {product.name}</h2>
+          <p>You entered the following: {product.name}</p>
           <p>
             {product.price} {product.currency}
           </p>
@@ -182,28 +180,29 @@ export default function ProductForm({ submitFunction }) {
   );
 }
 
+ProductForm.propTypes = {
+  submitFunction: PropTypes.func,
+};
+
 const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.8rem;
-  /* border: black solid 1px; */
-  width: 400px;
-  border-radius: 10px;
-  padding: 1rem;
   background-image: url(${wallpaper});
   background-size: cover;
+  border-radius: 10px;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
-
-  h1 {
+  gap: 0.8rem;
+  padding: 1rem;
+  width: 400px;
+  p {
+    margin-left: 0.5rem;
   }
 `;
 
 const NumberContainer = styled.section`
   display: flex;
-  justify-content: left;
-  gap: 0.5rem;
-
+  justify-content: flex-start;
   label {
     text-align: left;
   }
@@ -215,38 +214,44 @@ const Categorystyle = styled.select`
 
 const Radiocontainer = styled.div`
   display: flex;
-
-  gap: 1rem;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  p {
+    margin-left: 0.5rem;
+    margin-right: 1rem;
+  }
 `;
 
 const LabelStyler = styled.label`
   text-align: left;
+  width: 100%;
+  margin-bottom: 1rem;
 `;
 
 const CardContainer = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 2rem;
   padding: 1rem;
 `;
 
 const ButtonContainer = styled.div`
   display: flex;
-  gap: 1rem;
+  padding: 0.5rem;
 
   button {
-    width: 165px;
-    height: 35px;
     border: ivory solid 2px;
     border-radius: 5px;
-    opacity: 0.8;
     color: white;
     font-size: 1rem;
+    height: 35px;
+    opacity: 0.8;
+    width: 165px;
   }
 
   button:first-of-type {
     background-color: green;
+    margin-right: 1rem;
   }
 
   button:last-of-type {

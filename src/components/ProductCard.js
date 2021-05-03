@@ -1,5 +1,6 @@
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import wallpaper from './wallpaper.svg';
+import wallpaper from '../assets/wallpaper.svg';
 
 export default function ProductCard({ product }) {
   return (
@@ -37,33 +38,41 @@ export default function ProductCard({ product }) {
   );
 }
 
+ProductCard.propTypes = {
+  product: PropTypes.object,
+};
+
 const CardWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  /* border: solid black 1px; */
-  margin-bottom: 1rem;
-  padding: 1rem;
-  width: 400px;
-  margin-top: 2rem;
-  border-radius: 10px;
   background-image: url(${wallpaper});
   background-size: cover;
-  color: white;
+  border-radius: 10px;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+  color: white;
+  margin-bottom: 1rem;
+  margin-top: 2rem;
+  padding: 1rem;
+  width: 400px;
 
   h1 {
     text-align: center;
+  }
+
+  p {
+    font-size: 1rem;
+    font-weight: bold;
   }
 `;
 
 const ProdNameWrapper = styled.div`
   display: flex;
-  flex-direction: column;
   align-items: flex-start;
+  flex-direction: column;
 
   p:first-of-type {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     font-weight: 600;
   }
 
@@ -71,7 +80,7 @@ const ProdNameWrapper = styled.div`
     font-size: 1rem;
   }
 `;
-const Headerstyle = styled.h1`
+const Headerstyle = styled.h2`
   display: flex;
   justify-content: center;
   width: 400px;
@@ -81,14 +90,13 @@ const TagsList = styled.div`
   display: flex;
   flex-wrap: wrap;
   color: white;
-  padding: 0.4rem;
 
   p {
-    margin-right: 0.5rem;
-    border: white solid 1px;
     background-color: ivory;
+    border: white solid 1px;
     border-radius: 10px;
-    padding: 0.4rem;
     color: black;
+    margin-right: 0.5rem;
+    padding: 0.4rem;
   }
 `;

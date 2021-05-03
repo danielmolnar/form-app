@@ -1,8 +1,8 @@
-import ProductForm from './ProductForm';
-import styled from 'styled-components';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import ProductCard from './ProductCard';
+import styled from 'styled-components';
+import ProductForm from './components/ProductForm';
+import ProductCard from './components/ProductCard';
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -13,9 +13,7 @@ function App() {
   return (
     <Maincontainer>
       <>
-        <h1>Add a product</h1>
         <ProductForm submitFunction={addProduct} />
-
         {products.map((product) => (
           <ProductCard product={product} />
         ))}
