@@ -1,7 +1,7 @@
-import ProductForm from './components/ProductForm';
-import styled from 'styled-components';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import styled from 'styled-components';
+import ProductForm from './components/ProductForm';
 import ProductCard from './components/ProductCard';
 
 function App() {
@@ -13,7 +13,6 @@ function App() {
   return (
     <Maincontainer>
       <>
-        <h1>Add a product</h1>
         <ProductForm submitFunction={addProduct} />
         {products.map((product) => (
           <ProductCard product={product} />
@@ -30,8 +29,3 @@ const Maincontainer = styled.div`
   flex-direction: column;
   align-items: center;
 `;
-
-// const ProductcardWrapper = styled.div`
-//   background-image: url(${wallpaper});
-//   background-size: contain;
-// `;

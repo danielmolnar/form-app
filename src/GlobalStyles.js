@@ -1,22 +1,21 @@
 import { createGlobalStyle } from 'styled-components';
-import background from './background.svg';
+import background from './assets/background.svg';
 
 export default createGlobalStyle`
 
-*{
+*,
+*::before,
+*::after{
   box-sizing: border-box;
   font-family: sans-serif;
  }
 
 
  body {
-  /* background-color: darkseagreen; */
-  margin: 1rem;
+  margin: 0;
   background-image: url(${background});
   background-size: cover;
-
-  height: 200vh;
-
+  height: 100vh;
  }
 
 

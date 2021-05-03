@@ -1,97 +1,112 @@
-import ProductForm from '../components/ProductForm';
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-export default function Tag({ onCreateTag, tags, onRemoveTag, onTabIndex }) {
+export default function Tags({ tags, addProfileTag, removeProfileTag }) {
   const [value, setValue] = useState('');
+  const [selectedTagIndex, setSelectedTagIndex] = useState(-1);
 
   const handleChange = (event) => setValue(event.target.value);
 
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
       event.preventDefault();
-      onCreateTag(value);
+      addProfileTag(value.toUpperCase());
       setValue('');
+      setSelectedTagIndex(-1);
+    }
+    if (event.key === 'Backspace' && event.target.value === '') {
+      selectedTagIndex >= 0
+        ? removeProfileTag(tags[selectedTagIndex])
+        : removeProfileTag(tags[tags.length - 1]);
+    }
+
+    if (event.key === 'ArrowLeft') {
+      selectedTagIndex <= 0
+        ? setSelectedTagIndex(tags.length - 1)
+        : setSelectedTagIndex(selectedTagIndex - 1);
+    }
+
+    if (event.key === 'ArrowRight') {
+      selectedTagIndex === tags.length - 1
+        ? setSelectedTagIndex(0)
+        : setSelectedTagIndex(selectedTagIndex + 1);
     }
   };
 
   return (
     <>
-      <div>
-        Product Tags
-        <SectionWrapper>
-          {tags.map((tag, index) => (
-            <span
-              key={index}
-              tabIndex="0"
-              onKeyDown={(event) =>
-                event.key === 'Backspace' && onRemoveTag(tag)
-              }
-            >
-              {tag}
-              <i
-                // onKeyPress={(e) => e.key === 'Enter' && onRemoveTag(tag)}
-                onClick={() => onRemoveTag(tag)}
-              >
-                &times;
-              </i>
-            </span>
-          ))}
-
-          <input
-            // autoFocus
-            type="text"
-            name="tags"
-            onChange={handleChange}
-            value={value}
-            onKeyDown={handleKeyDown}
-          />
-        </SectionWrapper>
-      </div>
+      <SectionWrapper>
+        {tags?.map((tag, index) => (
+          <Tag
+            data-selected={selectedTagIndex === index ? 'selected' : ''}
+            selected={selectedTagIndex === index}
+            data-testid="tag"
+            key={index + tag}
+          >
+            {tag}
+            <i onClick={() => removeProfileTag(tag)}>&times;</i>
+          </Tag>
+        ))}
+        <input
+          data-testid="tag-input"
+          type="text"
+          name="tags"
+          onChange={handleChange}
+          value={value}
+          onKeyDown={handleKeyDown}
+          placeholder="Type here"
+        />
+      </SectionWrapper>
     </>
   );
 }
 
+Tags.propTypes = {
+  headline: PropTypes.string,
+  addProfileTag: PropTypes.func,
+  removeLastTag: PropTypes.func,
+  tags: PropTypes.array,
+};
+
 const SectionWrapper = styled.section`
   display: flex;
-  /* width: 30 */
   flex-wrap: wrap;
+  background: none;
   border-radius: 5px;
-  border: none;
-  cursor: pointer;
-  color: white;
-  gap: 5px;
-
+  max-width: 20rem;
+  margin-bottom: 1rem;
   input {
-    border: none;
+    border-radius: 10px;
     display: inline;
-    outline: none;
-    border-radius: 5px;
-    background: none;
-    color: white;
-    cursor: cell;
-  }
-
-  span {
+    color: hsl(0, 100%, 100%);
+    width: 80px;
+    font-size: 0.8rem;
     padding: 5px;
-    background-color: black;
-    color: white;
-    opacity: 0.7;
-    border-radius: 10px;
+    margin: 0.2rem;
+    background: none;
+    border: solid hsl(0, 100%, 100%) 1px;
+    cursor: cell;
+    outline: none;
   }
+`;
 
-  span:focus {
-    background-color: white;
-    color: black;
-    opacity: 0.7;
-    border-radius: 10px;
-    border: none;
+const Tag = styled.span`
+  background-color: ${(prop) =>
+    prop.selected ? 'hsl(0, 100%, 100%)' : 'hsla(360, 100%, 100%, 0.85)'};
+  color: hsl(0, 100%, 0%);
+  margin: 0.2rem;
+  padding: 5px;
+  outline: none;
+  font-size: 0.8rem;
+  border-radius: 10px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  :focus,
+  :hover {
+    background-color: hsl(0, 100%, 100%);
   }
-
-  span:hover {
-    background-color: white;
-    color: black;
-    opacity: 0.7;
-    border-radius: 10px;
+  i {
+    margin: 0 3px;
   }
 `;
